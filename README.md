@@ -2,9 +2,9 @@
 
 ### Machine Learning Assignment Project (Part B)
 
-The project is about the usage and evaluation of two deep learning models for a 12-class garbage classification problem. The main objective is to develop a model that is efficient and can correctly identify the category of waste just by looking at the image.
+The main purpose of the project is to develop, evaluate, and compare two deep learning models for the problem of classifying garbage into 12 categories. The project aims to build a model that is not only efficient but also accurate enough to determine the waste category merely by its image.
 
-This GitHub repository holds the Jupyter Notebook (`mru.ipynb`) wherein all the data preprocessing, model construction, training, and testing are documented with code.
+The repository on GitHub contains the Jupyter Notebook (`mru.ipynb`), which includes coding and layout for the whole process from data preprocessing, model building, training, and testing.
 
 ---
 
@@ -17,43 +17,42 @@ The dataset adopted is the **Garbage Classification** (12 classes) dataset from 
 * **Classes (12):** `battery`, `biological`, `brown-glass`, `cardboard`, `clothes`, `green-glass`, `metal`, `paper`, `plastic`, `shoes`, `trash`, `white-glass`.
 
 #### Data Preprocessing
-The data was preprocessed through `tf.keras.utils.image_dataset_from_directory` with the defined parameters:
-* **Image Size:** Resized all images to $128 \times 128$ pixels.
-* **Labels:** One-hot encoded vectors (`label_mode='categorical'`) were assigned.
-* **Splits:** The dataset was divided into 80% Training, 10% Validation, and 10% Test sets.
-* **Performance:** The `tf.data` pipelines were enhanced by using `.cache()` and `.prefetch()`.
+The training data underwent preprocessing using the function `tf.keras.utils.image_dataset_from_directory` with the specified characteristics:
+* **Image Size:** All images were resized to $128 \times 128$ pixels.
+* **Labels:** Vectors of one-hot encoding were assigned (`label_mode='categorical'`).
+* **Splits:** The original dataset was partitioned into 80% Training, 10% Validation, and 10% Test sets.
+* **Performance:** Performance of the `tf.data` pipelines was improved using `.cache()` and `.prefetch()`.
 
 ---
 
 ## 2. Methods (Models)
 
-The project is about the implementation and comparison of two deep learning models as per the assignment's requirement.
+This undertaking is fundamentally about the execution and evaluation of two deep learning algorithms in alignment with the requirements of the assignment.
 
 ### Model 1: Custom CNN (from the scratch)
-* **Description:** This model was built from scratch to satisfy the `CNN`/`ANN` requirement. The architecture consists of three convolutional blocks (a `Conv2D` layer followed by `MaxPooling2D`) with 32, 64, and 128 filters, respectively. This feature extraction base is followed by a `Flatten` layer and a dense classifier (`ANN`) with 128 units and a `Dropout` layer (0.5 rate) for regularization.
-* **Normalization:** Pixel values were scaled to the `[0, 1]` range by dividing by 255.0.
+* **Description:** This model was developed from the ground up to fulfill the `CNN`/`ANN` requirement. The network is made up of three convolutional blocks (a `Conv2D` layer and then `MaxPooling2D`) with 32, 64, and 128 filters, in that order. The feature extraction stage is succeeded by a `Flatten` layer and a dense classifier (`ANN`) consisting of 128 units and a `Dropout` layer (0.5 rate) for regularization.
+* **Normalization:** The pixel values were transformed into the `[0, 1]` interval by dividing them by 255.0.
 
 ### Model 2: Transfer Learning (MobileNetV2)
-* **Description:** This model uses the powerful **MobileNetV2** architecture, pre-trained on ImageNet, as a frozen feature extractor. We 'froze' the convolutional base to leverage its learned features and added a new classifier head on top. This head consists of a `GlobalAveragePooling2D` layer (to reduce parameters), a `Dropout` layer (0.2 rate), and a final `Dense` layer with 12 `softmax` outputs for our specific classes.
-* **Normalization:** This model required specific preprocessing. We used the `mobilenet_v2.preprocess_input` function, which scales pixel values to the `[-1, 1]` range.
+* **Description:** The powerful **MobileNetV2** with its pre-trained weights on ImageNet is utilized in this model as a frozen feature extractor. The convolutional base was 'frozen' in order to reap the benefits of its learned features and a classifier head was added on top. The head includes a `GlobalAveragePooling2D` layer (to keep fewer parameters), a `Dropout` layer (0.2 rate), and a final `Dense` layer with 12 `softmax` outputs for our unique classes.
+* **Normalization:** The mobilenet_v2 model needed to be specifically preprocessed. The function `mobilenet_v2.preprocess_input`, which maps pixel values to the `[-1, 1]` range, was employed.
 
 ---
 
 ## 3. Steps to Run the Code
 
-This project is designed to be run in a **Google Colab** environment.
+This project is meant to be executed in a **Google Colab** setting.
 
-1.  **Open in Colab:** Upload the `mru.ipynb` file to Google Colab.
-2.  **Enable GPU:** For faster training, go to `Runtime > Change runtime type` and select `T4 GPU`.
-3.  **Run All Cells:** Click `Runtime > Run all`.
-    * The notebook uses the `kagglehub` library, which automatically downloads the correct dataset.
-    * The script will preprocess the data, build both models, train them, and print the final evaluation.
-
+1.  **Open in Colab:** First, upload the `mru.ipynb` file to your Google Colab account.
+2.  **Enable GPU:** To speed up the training process, change the runtime by going to `Runtime > Change runtime type` and selecting `T4 GPU`.
+3.  **Run All Cells:** After that, click `Runtime > Run all`.
+    * The `kagglehub` library is used in the notebook, which automatically downloads the appropriate dataset.
+    * The code will handle data preprocessing, model building for both, training, and finally, evaluation printout.
 ---
 
 ## 4. Experiments & Results
 
-Both models were trained and evaluated on the held-out **test set (10% of the data)**. The primary metrics used for comparison are Test Accuracy and Weighted F1-Score.
+The **test set (10% of the data)** that was set aside for this purpose was used for training and evaluating both models. The main criteria for comparison were Test Accuracy and Weighted F1-Score.
 
 **[ACTION: Run the final cells of your notebook and copy the results table here.]**
 
@@ -79,7 +78,7 @@ Both models were trained and evaluated on the held-out **test set (10% of the da
 **[ACTION: Write 2-4 sentences summarizing your findings based on the results table.]**
 
 *Example:*
-The Transfer Learning model (MobileNetV2) significantly outperformed the Custom CNN in all metrics, achieving **[Your_TL_Accuracy]%** accuracy. This demonstrates the power of transfer learning, as the MobileNetV2 base was already trained on millions of real-world images, providing a much stronger starting point for feature extraction than our simple CNN. For future work, fine-tuning the top layers of the MobileNetV2 model could potentially increase accuracy even further.
+All metrics were surpassed by the Transfer Learning model (MobileNetV2) and the accuracy of **[Your_TL_Accuracy]%** was attained. This is a clear indication of the advantages of transfer learning as the MobileNetV2 base was previously trained on millions of actual images thus giving a much better starting point for feature extraction compared to our basic CNN. Future work may be done in such a way that the top layers of the MobileNetV2 model are gradually unfreeze and cause even more increase in accuracy.
 
 ---
 
